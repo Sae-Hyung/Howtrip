@@ -21,7 +21,7 @@ function loginCheck() {
 }
 
 
-// 다음 버튼 클릭 시 실행
+// 가입하기 버튼 클릭 시 실행
 function join() {
 	var result = false; // false일 경우 유효성 검사를 정상적으로 통과한 것이다.
 	
