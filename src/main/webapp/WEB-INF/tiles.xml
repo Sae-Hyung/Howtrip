@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+  <!-- 공통레이아웃 구조 정의 -->
+  <definition name="mainLayout" template="/WEB-INF/views/layout.jsp" >
+    <put-attribute name="title" value="" />
+    <!-- 헤더 섹션 포함 -->
+    <put-attribute name="header" value="/WEB-INF/views/header.jsp" />
+    <!-- 바디 내용은 동적으로 변하기때문에 value="" -->
+    <put-attribute name="body" value="" />
+    <!-- 푸터 섹션 포함 -->
+    <put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />
+  </definition>
+
+  <definition name="main" extends="mainLayout">
+    <put-attribute name="title" value="메인페이지" />
+    <put-attribute name="body" value="/WEB-INF/views/index.jsp" />
+  </definition>
+  
+  <definition name="loginForm" extends="mainLayout">
+    <put-attribute name="title" value="로그인창" />
+    <put-attribute name="body" value="/WEB-INF/views/member/loginForm.jsp" />
+  </definition>
+    
+   <definition name="joinForm" extends="mainLayout">
+      <put-attribute name="title" value="회원가입창" />
+      <put-attribute name="body" value="/WEB-INF/views/member/joinForm.jsp" />
+   </definition> 
+   
+   <definition name="communityBoard" extends="mainLayout">
+      <put-attribute name="title" value="커뮤니티 게시판" />
+      <put-attribute name="body" value="/WEB-INF/views/community/board.jsp" />
+   </definition> 
+   
+   
+   <definition name="admin/*" extends="adminMain">
+     <put-attribute name="title" value="관리자페이지" />
+     <put-attribute name="boby" value="/WEB-INF/views/admin/{1}.jsp" />
+   </definition>
+   
+   
+   
+</tiles-definitions>
