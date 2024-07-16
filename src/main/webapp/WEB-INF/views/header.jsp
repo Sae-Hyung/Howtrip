@@ -67,40 +67,29 @@
 			<div class="hidden md:block">
 				<nav aria-label="Global">
 					<ul class="flex px-40 items-center text-sm justify-evenly">
-						<li><a
-							class="text-xl text-black-500 transition hover:text-gray-500/75"
-							href="${contextPath}"> HOME </a></li>
+						<li><a class="text-xl text-black-500 transition hover:text-gray-500/75" href="${contextPath}"> HOME </a></li>
 
-						<li class="relative group w-48"><a
-							class="text-xl text-black-500 transition hover:text-gray-500/75"
-							href="#"> 여행지 </a>
-							<div
-								class="absolute left-0 w-48 bg-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 group-hover:visible transition-opacity duration-300 invisible">
-								<a href="#"
-									class="block px-4 py-2 text-black hover:bg-blue-200 hover:rounded-t-md">여행지
-									추천</a> <a href="#"
-									class="block px-4 py-2 text-black hover:bg-blue-200">여행지 코스
-									추천</a> <a href="#"
-									class="block px-4 py-2 text-black hover:bg-blue-200 hover:rounded-b-md">여행
-									지도</a>
-							</div></li>
+						<li class="relative group w-48">
+							<a class="text-xl text-black-500 transition hover:text-gray-500/75"	href="#"> 여행지 </a>
+							<div class="absolute left-0 w-48 bg-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 group-hover:visible transition-opacity duration-300 invisible">
+								<a href="#"	class="block px-4 py-2 text-black hover:bg-blue-200 hover:rounded-t-md">여행지 추천</a> 
+								<a href="#"	class="block px-4 py-2 text-black hover:bg-blue-200">여행지 코스 추천</a> 
+								<a href="#"	class="block px-4 py-2 text-black hover:bg-blue-200 hover:rounded-b-md">여행	지도</a>
+							</div>
+						</li>
 
 						<li><a
 							class="text-xl text-black-500 transition hover:text-gray-500/75"
 							href="${contextPath}/community/board.do"> 커뮤니티 </a></li>
 
-						<li class="relative group w-48"><a
-							class="text-xl text-black-500 transition hover:text-gray-500/75"
-							href="#"> 공지사항 </a>
-							<div
-								class="absolute left-0 w-48 bg-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 group-hover:visible transition-opacity duration-300 invisible">
-								<a href="#"
-									class="block px-4 py-2 text-black hover:bg-blue-200 hover:rounded-t-md">이벤트</a>
-								<a href="#" class="block px-4 py-2 text-black hover:bg-blue-200">서비스
-									업데이트 내역</a> <a href="#"
-									class="block px-4 py-2 text-black hover:bg-blue-200 hover:rounded-b-md">게시판
-									이용 규칙</a>
-							</div></li>
+						<li class="relative group w-48">
+							<a class="text-xl text-black-500 transition hover:text-gray-500/75"	href="#"> 공지사항 </a>
+							<div class="absolute left-0 w-48 bg-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 group-hover:visible transition-opacity duration-300 invisible">
+								<a href="#"	class="block px-4 py-2 text-black hover:bg-blue-200 hover:rounded-t-md">이벤트</a>
+								<a href="#" class="block px-4 py-2 text-black hover:bg-blue-200">서비스 업데이트 내역</a> 
+								<a href="#"	class="block px-4 py-2 text-black hover:bg-blue-200 hover:rounded-b-md">게시판 이용 규칙</a>
+							</div>
+						</li>
 					</ul>
 				</nav>
 			</div>

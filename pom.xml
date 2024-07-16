@@ -209,6 +209,13 @@
 	    	<version>2.5.4</version>
 		</dependency>
 		
+		<!-- Spring security 비밀번호 암호화 하는데 사용 -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-core</artifactId>
+		    <version>5.5.0</version>
+		</dependency>
+		
 	</dependencies>
     <build>
         <plugins>

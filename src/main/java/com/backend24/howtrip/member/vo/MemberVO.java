@@ -7,35 +7,35 @@ import org.springframework.stereotype.Component;
 
 @Component("memberVO")
 public class MemberVO {
-	private String userId;
-	private String userPw;
+	private String memberId;
+	private String memberPw;
 	private String name;
 	private Date birth;
 	private String gender;
 	private String email;	
-	private String tel;
+	private String phone;
 	private Timestamp joinDate;
 	
 	
-	public String getUserId() {
-		return userId;
+	public String getMemberId() {
+		return memberId;
 	}
 
 
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-
-
-	public String getUserPw() {
-		return userPw;
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
 
 
-	public void setUserPw(String userPw) {
-		this.userPw = userPw;
+	public String getMemberPw() {
+		return memberPw;
+	}
+
+
+
+	public void setMemberPw(String memberPw) {
+		this.memberPw = memberPw;
 	}
 
 
@@ -88,14 +88,14 @@ public class MemberVO {
 
 
 
-	public String getTel() {
-		return tel;
+	public String getPhone() {
+		return phone;
 	}
 
 
 
-	public void setTel(String tel) {
-		this.tel = tel;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 
@@ -114,8 +114,8 @@ public class MemberVO {
 
 	@Override
 	public String toString() {
-		return "MemberVO [userId=" + userId + ", userPw=" + userPw + ", name=" + name + ", birth=" + birth + ", gender="
-				+ gender + ", email=" + email + ", tel=" + tel + ", joinDate=" + joinDate + "]";
+		return "MemberVO [memberId=" + memberId + ", memberPw=" + memberPw + ", name=" + name + ", birth=" + birth + ", gender="
+				+ gender + ", email=" + email + ", tel=" + phone + ", joinDate=" + joinDate + "]";
 	}
 
 

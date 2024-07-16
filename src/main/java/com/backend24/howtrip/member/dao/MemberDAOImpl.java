@@ -1,5 +1,7 @@
 package com.backend24.howtrip.member.dao;
 
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -15,6 +17,7 @@ public class MemberDAOImpl implements MemberDAO {
 	private SqlSession sqlSession;
 	
 
+
 	@Override
 	public int insertMember(MemberVO memberVO) throws DataAccessException {
 		int result = sqlSession.insert("mapper.member.insertMember", memberVO);
@@ -28,14 +31,21 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public MemberVO loginById(MemberVO memberVO) throws DataAccessException {
-		MemberVO vo = sqlSession.selectOne("mapper.member.loginById",memberVO);
+	public MemberVO findMember(Map member) throws DataAccessException {
+		MemberVO vo = sqlSession.selectOne("mapper.member.findMember", member);
 		return vo;
 	}
 	
 	@Override
-	public int idCheck(MemberVO memberVO) throws DataAccessException {
-		int result = sqlSession.selectOne("mapper.member.idCheck", memberVO);
+	public String checkPw(String memberId) throws DataAccessException {
+		String memberPw = sqlSession.selectOne("mapper.member.checkPw", memberId);
+		System.out.println("MemberDAOImple checkPw() 메서드 암호화된 memberPw의 값 : " + memberPw);
+		return memberPw;
+	}
+	
+	@Override
+	public int checkId(String memberId) throws DataAccessException {
+		int result = sqlSession.selectOne("mapper.member.checkId", memberId);
 		return result;
 	}
 

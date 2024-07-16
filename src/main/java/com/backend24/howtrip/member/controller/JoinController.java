@@ -27,7 +27,7 @@ public class JoinController {
 	public ModelAndView addMember(@ModelAttribute("member") MemberVO member, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		int result = 0;
-		result = memberService.addMember(member);
+		result = memberService.addMember(member); // 1이면 성공 0이면 실패
 		System.out.println("회원가입 작업 수행---------------");
 		System.out.println("회원 추가 결과 : " + result);
 		ModelAndView mav = new ModelAndView("redirect:/member/loginForm.do");
