@@ -6,14 +6,13 @@
 <mapper namespace="mapper.board">
     <resultMap id="boardResultMap" type="boardVO">
         <result property="boardId" column="BOARD_ID" />
-        <result property="userId" column="USER_ID" />
         <result property="title" column="TITLE" />
         <result property="boardContent" column="BOARD_CONTENT" />
         <result property="views" column="VIEWS" />
         <result property="likeCnt" column="LIKE_CNT" />
         <result property="createdTime" column="CREATED_TIME" />
         <result property="updateTime" column="UPDATE_TIME" />
-
+        <result property="userId" column="USER_ID" />
     </resultMap>
 
     <!-- 게시글 목록 조회 -->

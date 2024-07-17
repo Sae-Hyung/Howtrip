@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 
 <head>
@@ -46,8 +47,8 @@
     </tbody>
 </table>
 <c:choose>
-    <c:when test="${loginUser != null}">
-        <a href="BoardServlet?command=board_write_form" class="btn btn-light">글쓰기</a>
+    <c:when test="${member.userId != null}">
+        <a href="${contextPath}/community/board/write" class="btn btn-light">글쓰기</a>
     </c:when>
 </c:choose>
 
@@ -77,4 +78,5 @@
         </li>
     </c:if>
 </ul>
+
 

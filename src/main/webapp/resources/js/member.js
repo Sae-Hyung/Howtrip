@@ -2,33 +2,43 @@
  * 
  */
 
+
 // 로그인 확인 기능 수행
-function loginCheck() {
- 	if (document.formLogin.userId.value == "" || document.formLogin.userId.value == null) {
+function validateLogin() {
+ 	if (document.formLogin.memberId.value == "" || document.formLogin.memberId.value == null) {
 		alert("아이디를 입력하여 주십시오.");
-		document.formLogin.userId.focus();
+		document.formLogin.memberId.focus();
 		return;  // 함수가 종료가 되어야 focus()가 실행된다.	
+	} else {
+		if (!idLength(document.getElementById("memberId").value) || !onlyNumberAndEnglish(document.getElementById("memberId").value)) {
+			alert("올바른 아이디 형식이 아닙니다.");
+			document.formLogin.memberId.focus();
+			return;
+		} 
 	}
 	
-	if (document.formLogin.userPw.value == "" || document.formLogin.userPw.value == null) {
+	if (document.formLogin.memberPw.value == "" || document.formLogin.memberPw.value == null) {
 		alert("비밀번호를 입력하여 주십시오.");
-		document.formLogin.userPw.focus();
+		document.formLogin.memberPw.focus();
 		return;  // 함수가 종료가 되어야 focus()가 실행된다.	
+	} else {
+		if (!password(document.getElementById("memberPw").value)) {
+			alert("올바른 비밀번호 형식이 아닙니다.")
+			document.formLogin.memberPw.focus();
+			return;
+		}
 	}
-	
-	document.formLogin.submit();
-	
 }
 
 
-// 다음 버튼 클릭 시 실행
+// 가입하기 버튼 클릭 시 실행
 function join() {
 	var result = false; // false일 경우 유효성 검사를 정상적으로 통과한 것이다.
 	
 	var formJoin = document.formJoin;
 	
 	
-	if (formJoin.userId.value == "" || formJoin.userId.value == null) {
+	if (formJoin.memberId.value == "" || formJoin.memberId.value == null) {
 		alert("아이디를 입력해 주세요.");
 		return;
 	} else if(formJoin.reId.value == "N") {
@@ -37,29 +47,29 @@ function join() {
 	}
 	
 	
-	if(formJoin.userPw.value == "" || formJoin.userPw.value == null){
+	if(formJoin.memberPw.value == "" || formJoin.memberPw.value == null){
 		alert("비밀번호를 입력해 주세요.");
-		formJoin.userPw.focus(); 
+		formJoin.memberPw.focus(); 
 		return;
 	} else { // 만약 alert이 발생할 경우 result를 true로 변경해 주어야 한다.
 		result = !password(elInputPassword.value);
 		if(result) {
 			alert("비밀번호는 8 ~ 20자 길이의 영어, 숫자, 특수문자(@$!%*#?&)의 조합으로 작성해주세요");
-			formJoin.userPw.focus();
+			formJoin.memberPw.focus();
 			return;
 		}
 	}
 	
 	
-	if(formJoin.userPwCheck.value == "" || formJoin.userPwCheck.value == null){
+	if(formJoin.checkMemberPw.value == "" || formJoin.checkMemberPw.value == null){
 		alert("비밀번호 확인을 입력해 주세요.");
-		formJoin.userPwCheck.focus(); 
+		formJoin.checkMemberPw.focus(); 
 		return;
 	} else {
 		result = !isMatch(elInputPassword.value, elInputPasswordRetype.value);
 		if(result){
 			alert("비밀번호가 일치하지 않습니다.");
-			formJoin.userPwCheck.focus();
+			formJoin.checkMemberPw.focus();
 			return;
 		}
 	}
@@ -106,7 +116,7 @@ function join() {
 	/*if(!/^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/.test(formJoin.tel.value)){
 		result = !/^01(?:0|1|[6-9])-(?:\d{3}|\d{4})-\d{4}$/.test(formJoin.tel.value);
 		alert("유효한 휴대전화 번호 형식이 아닙니다.");
-		formJoin.tel.focus();
+		formJoin.phone.focus();
 		return;
 	}*/
 	
@@ -118,12 +128,12 @@ function join() {
 
 
 // 회원가입 취소 버튼 클릭 시 메인 페이지로 이동
-function joinCancle() {
+function cancleJoin() {
 	location.href = "/howtrip";
 }
 
 // 1. 아이디 입력창 정보 가져오기
-let elInputUserId = document.querySelector("#userId"); // input#userId
+let elInputMemberId = document.querySelector("#memberId"); // input#memberId
 
 // 2. 성공 메시지 정보 가져오기
 let elSuccessMessage = document.querySelector(".success-message"); // div.success-message.hide
@@ -148,21 +158,21 @@ function onlyNumberAndEnglish(str) {
 // 아이디 이벤트
 function idEvent() { // 키보트로부터 값이 입력될 때 실행
   // 값을 입력한 경우
-  if (elInputUserId.value.length !== 0) {
+  if (elInputMemberId.value.length !== 0) {
     // 영어 또는 숫자 외의 값을 입력했을 경우
-    if(onlyNumberAndEnglish(elInputUserId.value) === false) {
+    if(onlyNumberAndEnglish(elInputMemberId.value) === false) {
       elSuccessMessage.classList.add("hide");
       elFailureMessage.classList.add("hide");
       elFailureMessageTwo.classList.remove("hide"); // 영어 또는 숫자만 가능합니다
     }
     // 글자 수가 6~20글자가 아닐 경우
-    else if(idLength(elInputUserId.value) === false) {
+    else if(idLength(elInputMemberId.value) === false) {
       elSuccessMessage.classList.add("hide"); // 성공 메시지가 가려져야 함
       elFailureMessage.classList.remove("hide"); // 아이디는 4~12글자이어야 합니다
       elFailureMessageTwo.classList.add("hide"); // 실패 메시지2가 가려져야 함
     }
     // 조건을 모두 만족할 경우
-    else if(idLength(elInputUserId.value) && onlyNumberAndEnglish(elInputUserId.value)) {
+    else if(idLength(elInputMemberId.value) && onlyNumberAndEnglish(elInputMemberId.value)) {
       elSuccessMessage.classList.remove("hide"); // 사용할 수 있는 아이디입니다
       elFailureMessage.classList.add("hide"); // 실패 메시지가 가려져야 함
       elFailureMessageTwo.classList.add("hide"); // 실패 메시지2가 가려져야 함
@@ -184,10 +194,10 @@ function idEvent() { // 키보트로부터 값이 입력될 때 실행
 
 
 // 1. 비밀번호 입력창 정보 가져오기
-let elInputPassword = document.querySelector("#userPw"); // input#userPw
+let elInputPassword = document.querySelector("#memberPw"); // input#memberPw
 
 // 2. 비밀번호 확인 입력창 정보 가져오기
-let elInputPasswordRetype = document.querySelector("#userPwCheck"); // input#userPwCheck
+let elInputPasswordRetype = document.querySelector("#checkMemberPw"); // input#memberPwCheck
 
 // 3. 실패 메시지 정보 가져오기 (비밀번호 불일치)
 let elMismatchMessage = document.querySelector(".mismatch-message"); // div.mismatch-message.hide

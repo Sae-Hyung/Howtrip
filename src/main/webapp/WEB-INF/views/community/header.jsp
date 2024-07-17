@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"
 	isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 
 <!DOCTYPE html>
@@ -18,22 +19,36 @@
 		<div class="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
 			<div class="flex h-16 items-center justify-between">
 				<div class="md:flex md:items-center md:gap-12">
-					<a class="block text-teal-600" href=""> <span class="sr-only">Home</span>
+					<a class="block text-teal-600" href="${contextPath}"> <span class="sr-only">Home</span>
 						<img src="../resources/img/HowTrip_logo.png" alt = "여행 어때?">
 					</a>
 				</div>
 
 				<div class="flex items-center gap-4">
 					<div class="sm:flex sm:gap-4">
-						<a
-							class="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow"
-							href="../member/loginForm.do"> 로그인 </a>
+						<c:choose>
+							<c:when test="${isLogOn == true && member != null}">
+								<span>아이디 : ${member.name} </span>
+								<a href="#none">마이페이지</a>
+								<a href="${contextPath}/member/logout.do">로그아웃</a>
+							</c:when>
+							<c:when test="${signIn != null}">
+								<span>아이디 : ${name}</span>
+								<a href="#none">마이페이지</a>
+								<a href="${contextPath}/member/sociallogout">로그아웃</a>
+							</c:when>
+							<c:otherwise>
+								<a
+									class="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow"
+									href="${contextPath}/member/loginForm.do"> 로그인 </a>
 
-						<div class="hidden sm:flex">
-							<a
-								class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
-								href="../member/joinForm.do"> 회원가입 </a>
-						</div>
+								<div class="hidden sm:flex">
+									<a
+										class="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-teal-600"
+										href="${contextPath}/member/joinForm.do"> 회원가입 </a>
+								</div>
+							</c:otherwise>
+						</c:choose>
 					</div>
 
 					<div class="block md:hidden">
@@ -55,7 +70,7 @@
 					<ul class="flex px-40 items-center text-sm justify-evenly">
 						<li><a
 							class="text-xl text-black-500 transition hover:text-gray-500/75"
-							href="#"> HOME </a></li>
+							href="${contextPath}"> HOME </a></li>
 
 						<li class = "relative group w-48">
 						  	<a class="text-xl text-black-500 transition hover:text-gray-500/75" href="#"> 여행지 </a>
@@ -66,7 +81,7 @@
 						  </div>						
 						</li>
 							
-						<li><a class = "text-xl text-black-500 transition hover:text-gray-500/75" href="board.do"> 커뮤니티 </a></li>
+						<li><a class = "text-xl text-black-500 transition hover:text-gray-500/75" href="${contextPath}/community/board.do"> 커뮤니티 </a></li>
 
 						<li class = "relative group w-48">
 							<a class="text-xl text-black-500 transition hover:text-gray-500/75" href="#"> 공지사항 </a>
