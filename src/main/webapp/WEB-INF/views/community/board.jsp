@@ -47,7 +47,7 @@
     </tbody>
 </table>
 <c:choose>
-    <c:when test="${member.userId != null}">
+    <c:when test="${member.memberId != null}">
         <a href="${contextPath}/community/board/write" class="btn btn-light">글쓰기</a>
     </c:when>
 </c:choose>
