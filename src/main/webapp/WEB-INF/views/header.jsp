@@ -27,7 +27,7 @@
 					<div class="sm:flex sm:gap-4">
 						<c:choose>
 							<c:when test="${isLogOn == true && member != null}">
-								<span>아이디 : ${member.name} </span>
+								<span>${member.name}님 환영합니다. </span>
 								<a href="#none">마이페이지</a>
 								<a href="${contextPath}/member/logout.do">로그아웃</a>
 							</c:when>

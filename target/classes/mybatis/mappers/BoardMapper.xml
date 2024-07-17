@@ -13,6 +13,7 @@
         <result property="createdTime" column="CREATED_TIME" />
         <result property="updateTime" column="UPDATE_TIME" />
         <result property="userId" column="USER_ID" />
+        <result property="memberId" column="MEMBER_ID" />
     </resultMap>
 
     <!-- 게시글 목록 조회 -->
