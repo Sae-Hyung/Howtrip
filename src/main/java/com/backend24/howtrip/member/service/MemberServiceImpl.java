@@ -47,6 +47,7 @@ public class MemberServiceImpl implements MemberService{
 		
 		String encodedPassword = memberDAO.checkPw(memberId); // member 테이블에 저장되어 있는 memberId의 암호화된 memberPw 값을 가져온다.
 		
+		
 		System.out.println("MemberServiceImple login() 메서드 passwordEncoder.matches 값 확인 : " + passwordEncoder.matches(memberPw, encodedPassword));
 		
 		if(encodedPassword == null) {
@@ -61,7 +62,14 @@ public class MemberServiceImpl implements MemberService{
 			member.put("memberPw", "");
 		}
 		
-		return memberDAO.findMember(member);
+
+		MemberVO vo = memberDAO.findMember(member);
+		
+		
+		System.out.println("MemberServiceImpl login() 메서드 - vo객체의 값 : " + vo);
+		
+		
+		return vo;
 	}
 
 //	@Override
