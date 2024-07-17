@@ -32,7 +32,7 @@ public class BoardControllerImpl implements BoardController {
     private BoardService boardService;
 
     @Override
-    @RequestMapping(value = "/board", method = RequestMethod.GET)
+    @RequestMapping(value = "/board.do", method = RequestMethod.GET)
     public ModelAndView listBoards(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
         ModelAndView mav = new ModelAndView();
         
@@ -40,6 +40,7 @@ public class BoardControllerImpl implements BoardController {
         MemberVO member = (MemberVO) session.getAttribute("member"); // loginController에서 memberVO객체를 member라는 이름으로 바인딩했다.
         String userId = member.getMemberId();
         
+        logger.info("BoardControllerImpl - listBoards()메서드 MemberVO 객체의 값 : " + member);
         logger.info("세션에서 가져온 user_id : " + userId);
         
         try {
