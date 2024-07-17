@@ -12,7 +12,7 @@ public class BoardVO {
     private int likeCnt;
     private Timestamp createdTime;
     private Timestamp updateTime;
-    private String userId;
+    private String memberId;
     private List<BoardFileVO> boardFiles; // 첨부파일 목록
     private List<BoardTagVO> tagNames; // 해시태그 목록
     private List<CommentVO> comments; //댓글 목록
@@ -31,7 +31,7 @@ public class BoardVO {
   	    this.likeCnt = likeCnt;
   	    this.createdTime = createdTime;
   	    this.updateTime = updateTime;
-  	    this.userId = userId;
+  	    this.memberId = userId;
    
   	}
 
@@ -91,13 +91,14 @@ public class BoardVO {
   		this.updateTime = updateTime;
   	}
 
-  	public String getUserId() {
-  		return userId;
-  	}
 
-  	public void setUserId(String userId) {
-  		this.userId = userId;
-  	}
+  	public String getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
 
   	public List<BoardFileVO> getBoardFiles() {
   	    return boardFiles;

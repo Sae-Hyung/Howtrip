@@ -8,7 +8,7 @@ public class CommentVO {
 	private String commentContent;
 	private Timestamp createdTime;
 	private Timestamp updateTime;
-	private String userId;
+	private String memberId;
 	private int boardId;
 	
 	public CommentVO() {}
@@ -18,7 +18,7 @@ public class CommentVO {
 	  this.commentContent = commentContent;
 	  this.createdTime = createdTime;
 	  this.updateTime = updateTime;
-	  this.userId = userId;
+	  this.memberId = userId;
 	  this.boardId = boardId;
 	}
 	public int getCommentId() {
@@ -45,12 +45,15 @@ public class CommentVO {
 	public void setUpdateTime(Timestamp updateTime) {
 		this.updateTime = updateTime;
 	}
-	public String getUserId() {
-		return userId;
+	
+	public String getMemberId() {
+		return memberId;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
+
 	public int getBoardId() {
 		return boardId;
 	}

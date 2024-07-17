@@ -85,7 +85,7 @@ public class BoardControllerImpl implements BoardController {
 
         try {
             // 세션에서 가져온 사용자 ID를 설정
-            boardVO.setUserId(memberId);
+            boardVO.setMemberId(memberId);
 
             // BoardVO 객체를 서비스를 통해 DB에 삽입
             boardService.insertBoard(boardVO);

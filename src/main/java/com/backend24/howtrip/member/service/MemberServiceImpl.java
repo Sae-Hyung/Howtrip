@@ -49,9 +49,16 @@ public class MemberServiceImpl implements MemberService{
 		
 		System.out.println("MemberServiceImple login() 메서드 passwordEncoder.matches 값 확인 : " + passwordEncoder.matches(memberPw, encodedPassword));
 		
+		if(encodedPassword == null) {
+			encodedPassword = "";
+		}
+		
 		if(passwordEncoder.matches(memberPw, encodedPassword)) { // 입력 받은 memberPw 값과 암호화된 memberPw의 값을 matches 메서드를 이용해서 비교
 			member.put("memberId", memberId);
 			member.put("memberPw", encodedPassword);
+		} else {
+			member.put("memberId", memberId);
+			member.put("memberPw", "");
 		}
 		
 		return memberDAO.findMember(member);

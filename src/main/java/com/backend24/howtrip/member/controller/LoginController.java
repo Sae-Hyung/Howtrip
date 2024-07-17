@@ -49,7 +49,7 @@ public class LoginController {
 		
 		// memberVO 객체와 memberVO 객체의 memberId 필드의 값을 확인한다.
 		System.out.println("checkLogin() 메서드 - MemberVO객체의 값 : " + memberVO);
-		System.out.println("checkLogin() 메서드 - MemberVO.getMemeberId()의 값 : " + memberVO.getMemberId());
+//		System.out.println("checkLogin() 메서드 - MemberVO.getMemeberId()의 값 : " + memberVO.getMemberId());
 		
 		if(memberVO == null) { // memberVO 객체가 존재하지 않으면 로그인 실패, result 값으로 0을 반환한다.
 			rAttr.addAttribute("result","loginFailed");
