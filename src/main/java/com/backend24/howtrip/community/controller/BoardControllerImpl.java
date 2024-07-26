@@ -20,7 +20,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/community")
@@ -38,68 +40,79 @@ public class BoardControllerImpl implements BoardController {
         
         // 세션에서 user_id 가져오기
         MemberVO member = (MemberVO) session.getAttribute("member"); // loginController에서 memberVO객체를 member라는 이름으로 바인딩했다.
-        String userId = member.getMemberId();
+//        String memberId = member.getMemberId();
+        
+        logger.info("게시판 페이지 진입");
         
         logger.info("BoardControllerImpl - listBoards()메서드 MemberVO 객체의 값 : " + member);
-        logger.info("세션에서 가져온 user_id : " + userId);
+//        logger.info("세션에서 가져온 memberId : " + memberId);
         
-        try {
-            List<BoardVO> boardList = boardService.getAllBoards();
-            mav.addObject("boardList", boardList);
-            System.out.println("게시판 불러오기");
-            mav.setViewName("community/board"); // 뷰 이름 설정
-        } catch (Exception e) {
-            logger.error("게시판 리스트 조회에 실패하였습니다.", e);
-            mav.setViewName("error"); // 에러 발생 시 에러 페이지로 이동
-            mav.addObject("message", "게시판 리스트 조회 중 오류가 발생하였습니다.");
-        }
+        
+        List<BoardVO> boardList = boardService.getAllBoards();
+        
+//        System.out.println("boardList의 값 : " +boardList);
+        
+        mav.addObject("boardList", boardList);
+        
+        
+        
+        mav.setViewName("community/board"); // 뷰 이름 설정
+       
         return mav;
     }
     
-    // 글쓰기 폼 보여주기 (GET 요청)
-    @RequestMapping(value = "/board/write", method = RequestMethod.GET)
-    public ModelAndView showWriteForm(HttpSession session) {
-        // 세션에서 user_id 가져오기
+    // 로그인 여부 확인 (GET 요청)
+    @ResponseBody
+    @RequestMapping(value = "/writeCheck", method = RequestMethod.GET)
+    public int writeCheck(HttpSession session) {
+    	
+        // 세션에서 member 가져오기
         MemberVO member = (MemberVO) session.getAttribute("member");
-        String memberId = member.getMemberId();
+//        String memberId = member.getMemberId();
         
-        if (memberId == null) {
-            return new ModelAndView("redirect:/member/loginForm.do"); // 세션이 없거나 사용자 아이디가 없으면 로그인 폼으로 이동
-        } else {
-            return new ModelAndView("boardWrite"); // 세션이 있고 사용자 아이디가 있으면 글쓰기 폼으로 이동
-        }
+        if (member == null) // member 객체가 존재하지 않으면 0 반환
+        	return 0;
+        
+        if (member.getMemberId() == null) // 아이디가 존재하지 않으면 0 반환
+        	return 0;
+        else // 아이디가 존재하면 1 반환
+        	return 1;
+    }
+    
+    // 글 작성 페이지로 이동
+    @RequestMapping(value = "/board/writeForm", method = RequestMethod.GET)
+    public ModelAndView writeForm(HttpSession session) {
+    	ModelAndView mav = new ModelAndView();
+    	
+    	MemberVO memberVO = (MemberVO) session.getAttribute("member");
+    	
+    	mav.addObject("member", memberVO);
+    	
+    	mav.setViewName("community/boardWrite");
+
+    	return mav;
     }
     
     // 글쓰기 처리 (POST 요청)
+    @Override
+    @ResponseBody
     @RequestMapping(value = "/board/write", method = RequestMethod.POST)
-    public ModelAndView insertBoard(@ModelAttribute("boardVO") BoardVO boardVO, HttpSession session) {
-        ModelAndView mav = new ModelAndView();
-
-        // 세션에서 user_id 가져오기
-        MemberVO member = (MemberVO) session.getAttribute("member");
-        String memberId = member.getMemberId();
+    public int insertBoard(@ModelAttribute("boardVO") BoardVO boardVO, HttpSession session, HttpServletRequest request, HttpServletResponse response) {
         
-        if (memberId == null) {
-            mav.setViewName("redirect:/member/loginForm.do");
-            return mav;
+        System.out.println("title의 값 : " + boardVO.getTitle());
+        System.out.println("memberId의 값 : " + boardVO.getMemberId());
+        System.out.println("boardContent의 값 : " + boardVO.getBoardContent());
+        
+        if (boardVO.getTitle() == null || boardVO.getTitle() == "") {
+            return 0;
+        } else if (boardVO.getBoardContent() == null || boardVO.getBoardContent() == "") {     	
+        	return 1;
         }
-
-        try {
-            // 세션에서 가져온 사용자 ID를 설정
-            boardVO.setMemberId(memberId);
-
-            // BoardVO 객체를 서비스를 통해 DB에 삽입
-            boardService.insertBoard(boardVO);
-
-            // 성공 시 목록 페이지로 리다이렉트
-            mav.setViewName("redirect:/board/list");
-        } catch (Exception e) {
-            // 오류 발생 시 오류 페이지로 이동
-            mav.addObject("error", "게시판 추가 중 오류가 발생하였습니다.");
-            mav.setViewName("errorPage");
-        }
-
-        return mav;
+     
+        // Map 객체를 서비스를 통해 DB에 삽입
+        boardService.insertBoard(boardVO);
+           
+        return 2;
     }
 
     @Override
@@ -120,43 +133,57 @@ public class BoardControllerImpl implements BoardController {
     }
 
     @Override
-    @RequestMapping(value = "/board/{boardId}", method = RequestMethod.GET)
-    public ModelAndView viewBoard(@PathVariable("boardId") int boardId,
-                                  HttpServletRequest request, HttpServletResponse response) {
-        ModelAndView mav = new ModelAndView();
-        try {
-            BoardVO board = boardService.viewBoard(boardId);
-            if (board != null) {
-                mav.setViewName("community/boardDetail"); // JSP 파일 이름 (뷰 이름)을 설정합니다.
-                mav.addObject("board", board); // 모델에 board 객체를 추가합니다.
-            } else {
-                mav.setViewName("error"); // 게시판을 찾을 수 없는 경우 에러 페이지로 이동합니다.
-                mav.addObject("message", "해당 게시판을 찾을 수 없습니다.");
-            }
-        } catch (Exception e) {
-            logger.error("게시판 조회에 실패하였습니다.", e);
-            mav.setViewName("error"); // 예외 발생 시 에러 페이지로 이동합니다.
-            mav.addObject("message", "게시판 조회 중 오류가 발생하였습니다.");
+    @ResponseBody
+    @RequestMapping(value = "/board/viewCheck", method = RequestMethod.GET)
+    public int viewCheck(HttpServletRequest request, HttpServletResponse response) {
+    	int result;
+    	System.out.println("BoardControllerImpl - viewCheck 메서드 진입");
+        BoardVO board = boardService.findByBoardId(Integer.parseInt(request.getParameter("boardId")));
+        
+        if (board != null) {
+        	result = 0;
+        } else {
+        	result = 1;
         }
-        return mav;
+        
+        return result;
     }
+    
+    
+    @RequestMapping(value = "/board/viewBoard/{boardId}", method = RequestMethod.GET)
+    public ModelAndView viewBoard(@PathVariable("boardId") int boardId, HttpServletRequest request, HttpServletResponse response) {
+    	ModelAndView mav = new ModelAndView();
+    	System.out.println("BoardControllerImpl - viewBoard 메서드 진입");
+    	BoardVO board = boardService.viewBoard(boardId);
+    	
+        mav.addObject("board", board); // 모델에 board 객체를 추가합니다.
+        mav.setViewName("community/boardView"); // JSP 파일 이름 (뷰 이름)을 설정합니다.
 
+    	return mav;
+    }
+    
+    @RequestMapping(value = "/board/updateBoardForm", method = RequestMethod.POST)
+    public ModelAndView updateBoardForm(HttpServletRequest request, HttpServletResponse response) {
+    	ModelAndView mav = new ModelAndView();
+    	
+    	BoardVO boardVO = boardService.findByBoardId(Integer.parseInt(request.getParameter("boardId")));
+    	
+    	mav.addObject("board", boardVO);
+    	mav.setViewName("community/updateBoard");
+    	
+    	return mav;
+    }
+    
     @Override
-    @RequestMapping(value = "/board/{boardId}", method = RequestMethod.PUT)
-    public ModelAndView editBoard(@ModelAttribute("boardVO") BoardVO boardVO,
-                                  @PathVariable("boardId") int boardId,
-                                  HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/board/updateBoard", method = RequestMethod.POST)
+    public ModelAndView updateBoard(@ModelAttribute("boardVO") BoardVO boardVO, @PathVariable("boardId") int boardId, HttpServletRequest request, HttpServletResponse response) {
         ModelAndView mav = new ModelAndView();
-        try {
-            boardVO.setBoardId(boardId); // boardVO에 id 설정
-            boardService.editBoard(boardVO);
-            mav.setViewName("redirect:/community/board.do"); // 수정 후 게시판 리스트로 리다이렉트
-            mav.addObject("message", "게시판이 수정되었습니다."); // 메시지를 모델에 추가
-        } catch (Exception e) {
-            logger.error("게시판 수정에 실패하였습니다.", e);
-            mav.setViewName("error"); // 에러 발생 시 에러 페이지로 이동
-            mav.addObject("message", "게시판 수정 중 오류가 발생하였습니다.");
-        }
+        
+        boardVO.setBoardId(boardId); // boardVO에 id 설정
+        boardService.updateBoard(boardVO);
+        mav.setViewName("redirect:/community/board.do"); // 수정 후 게시판 리스트로 리다이렉트
+        mav.addObject("message", "게시판이 수정되었습니다."); // 메시지를 모델에 추가
+        
         return mav;
     }
 
@@ -173,28 +200,6 @@ public class BoardControllerImpl implements BoardController {
             logger.error("첨부 파일 조회에 실패하였습니다.", e);
             mav.setViewName("error"); // 에러 발생 시 에러 페이지로 이동
             mav.addObject("message", "첨부 파일 조회 중 오류가 발생하였습니다.");
-        }
-        return mav;
-    }
-    @Override
-    @RequestMapping(value = "/board/{boardId}/incrementViews", method = RequestMethod.POST)
-    public ModelAndView incrementViews(@PathVariable("boardId") int boardId,
-                                       HttpServletRequest request, HttpServletResponse response) {
-        ModelAndView mav = new ModelAndView();
-        try {
-            // 조회수 증가 로직
-            boardService.incrementViews(boardId);
-
-            // 추가적으로 필요한 작업이 있다면 모델에 추가
-            mav.addObject("message", "조회수가 증가되었습니다.");
-
-            // 성공 시 보여줄 뷰 설정
-            mav.setViewName("redirect:/board/" + boardId); // 예시 URL, 실제로는 해당 게시글 상세 페이지로 리다이렉트
-
-        } catch (Exception e) {
-            logger.error("조회수 증가 중 오류 발생", e);
-            mav.setViewName("error"); // 에러 페이지로 이동
-            mav.addObject("error", "조회수 증가 중 오류가 발생하였습니다.");
         }
         return mav;
     }
@@ -412,11 +417,4 @@ public class BoardControllerImpl implements BoardController {
         }
         return mav;
     }
-
-	@Override
-	public ModelAndView inserBoard(BoardVO boardVO, HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }    

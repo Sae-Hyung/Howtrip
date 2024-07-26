@@ -2,6 +2,7 @@ package com.backend24.howtrip.community.dao;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +23,29 @@ public class BoardDAOImpl implements BoardDAO {
     // 기본 게시판 관련 메서드
     @Override
     public List<BoardVO> selectAllBoards() throws DataAccessException {
+    	List<BoardVO> boardList = sqlSession.selectList("mapper.board.selectAllBoards");
+    	
+    	System.out.println("BoardDAOImpl - boardList의 값 : " + boardList);
+    	
         return sqlSession.selectList("mapper.board.selectAllBoards");
     }
 
     @Override
     public BoardVO selectBoardById(int boardId) throws DataAccessException {
+    	BoardVO boardVO = sqlSession.selectOne("mapper.board.selectBoardById", boardId); 
+    	
+    	System.out.println("boardDAOImpl - selectBoardById : " + boardVO.getBoardId());
+    	
         return sqlSession.selectOne("mapper.board.selectBoardById", boardId);
     }
-
+    
+   
     @Override
+	public Integer getMaxBoardId() throws DataAccessException {
+		return sqlSession.selectOne("mapper.board.maxBoardId");
+	}
+
+	@Override
     public int insertBoard(BoardVO boardVO) throws DataAccessException {
         return sqlSession.insert("mapper.board.insertBoard", boardVO);
     }

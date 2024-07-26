@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"
+    isELIgnored="false"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +17,7 @@
 <body>
 	<div class = "wrap">
         <div class="login_wrap">
-            <h2>여행어때?</h2>
+            <a href = "${contextPath}"><h2>여행어때?</h2></a>
             <ul class = "menu_wrap">
                 <li class = "menu_item">
                     <a href="loginForm.do" id="loinid" class="menu_id" aria-selected="false">

@@ -1,6 +1,7 @@
 package com.backend24.howtrip.community.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
@@ -14,13 +15,12 @@ public interface BoardService {
     public int insertBoard(BoardVO boardVO) throws DataAccessException;
     public int removeBoard(int boardId) throws DataAccessException;
     public BoardVO viewBoard(int boardId) throws DataAccessException;
-    public int editBoard(BoardVO boardVO) throws DataAccessException;
     public List<BoardVO> getAllBoards() throws DataAccessException;
     public int updateBoard(BoardVO boardVO) throws DataAccessException;
     public int deleteBoard(int boardId) throws DataAccessException;
-    public void incrementViews(int boardId) throws DataAccessException;
     public void incrementLikeCnt(int boardId) throws DataAccessException;
     public int getLikeCnt(int boardId) throws DataAccessException;
+    public BoardVO findByBoardId(int boardId) throws DataAccessException;
     
     // 첨부파일 관련 메서드
     public List<BoardFileVO> getFilesByBoardId(int boardId) throws DataAccessException;

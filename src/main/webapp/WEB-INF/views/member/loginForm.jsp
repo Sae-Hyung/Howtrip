@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../resources/css/login.css">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<script type="text/javascript" src="../resources/js/member.js"></script>
+<script defer type="text/javascript" src="${contextPath}/resources/js/member.js"></script>
 <script type="text/javascript">
 function checkLogin() {
 	$.ajax({
@@ -70,7 +70,7 @@ function checkLogin() {
                     <a target = "_blank" href = "${contextPath}/member/findId.do" class = "find_text">아이디 찾기</a>
                 </li>
                 <li>
-                    <a target = "_blank" href="${contextPath}/member/findPwd.do" class = "find_text">비밀번호 찾기</a>
+                    <a target = "_blank" href="${contextPath}/member/findPw.do" class = "find_text">비밀번호 찾기</a>
                 </li>
                 <li>
                     <a target="_blank" href="${contextPath}/member/joinForm.do" class = "join">회원가입</a>

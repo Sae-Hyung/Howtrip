@@ -1,6 +1,7 @@
 package com.backend24.howtrip.community.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -24,6 +25,11 @@ public class BoardServiceImpl implements BoardService {
     //기본게시판
     @Override
     public int insertBoard(BoardVO boardVO) throws DataAccessException {
+    	if (boardDAO.getMaxBoardId() == null) { // 게시글이 존재하지 않을 경우 boardId를 1로 설정
+    		boardVO.setBoardId(1);
+    	} else {
+    		boardVO.setBoardId(boardDAO.getMaxBoardId() + 1); // 존재할경우 최대값에 + 1
+    	}
         return boardDAO.insertBoard(boardVO);
     }
 
@@ -34,13 +40,15 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public BoardVO viewBoard(int boardId) throws DataAccessException {
+    	boardDAO.updateViews(boardId); // 게시글 클릭 시 조회수가 1 증가
         return boardDAO.selectBoardById(boardId);
     }
 
     @Override
-    public int editBoard(BoardVO boardVO) throws DataAccessException {
-        return boardDAO.updateBoard(boardVO);
-    }
+	public BoardVO findByBoardId(int boardId) throws DataAccessException {
+		return boardDAO.selectBoardById(boardId);
+	}
+
 
     @Override
     public List<BoardVO> getAllBoards() throws DataAccessException {
@@ -55,11 +63,6 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public int deleteBoard(int boardId) throws DataAccessException {
         return boardDAO.deleteBoard(boardId);
-    }
-
-    @Override
-    public void incrementViews(int boardId) throws DataAccessException {
-        boardDAO.updateViews(boardId);
     }
 
     @Override

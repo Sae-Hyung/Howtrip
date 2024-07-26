@@ -69,7 +69,7 @@ public class LoginController {
 		return result;
 	}
 	
-	@RequestMapping(value = "/login.do")
+	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	public ModelAndView login(HttpServletRequest request, HttpServletResponse response) {// memberVO 객체가 존재하면 ajax를 이용해 login.do로 요청을 보낸다.
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();

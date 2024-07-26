@@ -1,6 +1,7 @@
 package com.backend24.howtrip.community.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.dao.DataAccessException;
 
@@ -19,6 +20,7 @@ public interface BoardDAO {
     public int updateViews(int boardId) throws DataAccessException;
     public int updateLikeCnt(int boardId) throws DataAccessException;
     public int getLikeCnt(int boardId) throws DataAccessException;
+    public Integer getMaxBoardId() throws DataAccessException;
     
     //첨부파일
     public List<BoardFileVO> selectFilesByBoardId(int boardId) throws DataAccessException;

@@ -57,12 +57,12 @@
         }
     </style>
 <div class="container">
-	<div class="main-header">
+	<!-- <div class="main-header">
 		<h1>웹 서비스 소개</h1>
 		<p>
 			<strong>size</strong> 설정 필요
 		</p>
-	</div>
+	</div> -->
 	<div class="cards">
 		<div class="card">
 			<h3>부평시장 맛집추천!</h3>

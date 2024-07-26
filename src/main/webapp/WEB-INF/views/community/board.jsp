@@ -4,12 +4,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-
+<%@ include file="../header.jsp"%>
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<c:url value='/resources/css/board.css' />">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <form class="table-form">
     <input type="hidden" name="command" value="boardList">
@@ -22,6 +23,8 @@
         <input class="btn btn-search" type="submit" value="검색"/>
     </fieldset>
 </form>
+<form id = boardForm>
+<input type = "hidden" value = "" name = "boardId" id = "boardId">
 <table class="table table-hover">
     <thead>
         <tr>
@@ -37,8 +40,8 @@
         <c:forEach var="board" items="${boardList}">
             <tr>
                 <td>${board.boardId}</td>
-                <td><a href="${contextPath}/community/?command=board_detail&boardId=${board.boardId}">${board.title}</a></td>
-                <td>${board.userId}</td>
+                <td><a href="#" onclick = "goView(${board.boardId})">${board.title}</a></td>
+                <td>${board.memberId}</td>
                 <td><fmt:formatDate pattern="yyyy/MM/dd HH:mm:ss" value="${board.createdTime}"/></td>
                 <td>${board.views}</td>
                 <td>${board.likeCnt}</td>
@@ -46,11 +49,11 @@
         </c:forEach>
     </tbody>
 </table>
-<c:choose>
-    <c:when test="${member.memberId != null}">
-        <a href="${contextPath}/community/board/write" class="btn btn-light">글쓰기</a>
-    </c:when>
-</c:choose>
+</form>
+
+<!-- loginCheck() 함수를 통해서 로그인 여부를 확인 ajax 사용 -->
+<button class="btn btn-light" id = "writeBtn" onclick = "loginCheck()">글쓰기</button>
+
 
 <!--  페이징처리 -->
 <c:set var="page" value="${empty param.p ? 1 : param.p}" />
@@ -79,4 +82,6 @@
     </c:if>
 </ul>
 
+
+<%@ include file="../footer.jsp"%>
 

@@ -8,8 +8,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="resources/css/main.css">
+<link rel="stylesheet" href="<c:url value = '/resources/css/main.css' />">
 <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script defer src="${contextPath}/resources/js/board.js"></script>
 <title>여행 어때?</title>
 </head>
 <body>
@@ -18,8 +20,7 @@
 			<div class="flex h-16 items-center justify-between">
 				<div class="md:flex md:items-center md:gap-12">
 					<a class="block text-teal-600" href="${contextPath}"> <span
-						class="sr-only">Home</span> <img
-						src="resources/img/HowTrip_logo.png" alt="여행 어때?">
+						class="sr-only">Home</span> <img src= "${contextPath}/resources/img/HowTrip_logo.png" alt="여행 어때?">
 					</a>
 				</div>
 
@@ -27,7 +28,7 @@
 					<div class="sm:flex sm:gap-4">
 						<c:choose>
 							<c:when test="${isLogOn == true && member != null}">
-								<span>${member.name}님 환영합니다. </span>
+								<span>${member.memberId}님 환영합니다. </span>
 								<a href="#none">마이페이지</a>
 								<a href="${contextPath}/member/logout.do">로그아웃</a>
 							</c:when>
@@ -74,7 +75,7 @@
 							<div class="absolute left-0 w-48 bg-white rounded-md shadow-lg opacity-0 group-hover:opacity-100 group-hover:visible transition-opacity duration-300 invisible">
 								<a href="#"	class="block px-4 py-2 text-black hover:bg-blue-200 hover:rounded-t-md">여행지 추천</a> 
 								<a href="#"	class="block px-4 py-2 text-black hover:bg-blue-200">여행지 코스 추천</a> 
-								<a href="#"	class="block px-4 py-2 text-black hover:bg-blue-200 hover:rounded-b-md">여행	지도</a>
+								<a href="${contextPath}/maps.do" class="block px-4 py-2 text-black hover:bg-blue-200 hover:rounded-b-md">여행 지도</a>
 							</div>
 						</li>
 

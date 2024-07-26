@@ -16,11 +16,10 @@ import com.backend24.howtrip.community.vo.CommentVO;
 public interface BoardController {
 	
 	ModelAndView listBoards(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception;
-    ModelAndView viewBoard(int boardId, HttpServletRequest request, HttpServletResponse response) throws Exception;
-    ModelAndView inserBoard(BoardVO boardVO, HttpServletRequest request, HttpServletResponse response) throws Exception;
-    ModelAndView editBoard(BoardVO boardVO, int boardId, HttpServletRequest request, HttpServletResponse response) throws Exception;
+    int viewCheck(HttpServletRequest request, HttpServletResponse response) throws Exception;
+    int insertBoard(BoardVO boardVO, HttpSession session, HttpServletRequest request, HttpServletResponse response) throws Exception;
+    ModelAndView updateBoard(BoardVO boardVO, int boardId, HttpServletRequest request, HttpServletResponse response) throws Exception;
     ModelAndView deleteBoard(int boardId, HttpServletRequest request, HttpServletResponse response) throws Exception;
-    ModelAndView incrementViews(int boardId, HttpServletRequest request, HttpServletResponse response) throws Exception;
     ModelAndView incrementLikeCnt(int boardId, HttpServletRequest request, HttpServletResponse response) throws Exception;
     
     ModelAndView getFilesByBoardId(int boardId, HttpServletRequest request, HttpServletResponse response) throws Exception;

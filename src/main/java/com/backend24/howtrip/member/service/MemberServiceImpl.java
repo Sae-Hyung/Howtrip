@@ -43,11 +43,9 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public MemberVO login(String memberId, String memberPw) throws Exception {
-		Map member = new HashMap<String, String>();
-		
+		Map<String, String> member = new HashMap<String, String>();
 		String encodedPassword = memberDAO.checkPw(memberId); // member 테이블에 저장되어 있는 memberId의 암호화된 memberPw 값을 가져온다.
-		
-		
+
 		System.out.println("MemberServiceImple login() 메서드 passwordEncoder.matches 값 확인 : " + passwordEncoder.matches(memberPw, encodedPassword));
 		
 		if(encodedPassword == null) {

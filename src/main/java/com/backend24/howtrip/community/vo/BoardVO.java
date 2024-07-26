@@ -13,9 +13,10 @@ public class BoardVO {
     private Timestamp createdTime;
     private Timestamp updateTime;
     private String memberId;
-    private List<BoardFileVO> boardFiles; // 첨부파일 목록
-    private List<BoardTagVO> tagNames; // 해시태그 목록
-    private List<CommentVO> comments; //댓글 목록
+//    private List<BoardFileVO> boardFiles; // 첨부파일 목록
+//    private List<BoardTagVO> tagNames; // 해시태그 목록
+//    private List<CommentVO> comments; //댓글 목록
+    private int boardSeq;
    
   //기본생성자
   	public BoardVO() {
@@ -23,7 +24,7 @@ public class BoardVO {
   	}
   	  
   	//전체 필드를 가진 생성자
-  	public BoardVO(int boardId, String title, String boardContent, int views, int likeCnt, Timestamp createdTime, Timestamp updateTime, String userId) {
+  	public BoardVO(int boardId, String title, String boardContent, int views, int likeCnt, Timestamp createdTime, Timestamp updateTime, String memberId) {
   		this.boardId = boardId;
   	    this.title = title;
   	    this.boardContent = boardContent;
@@ -31,7 +32,7 @@ public class BoardVO {
   	    this.likeCnt = likeCnt;
   	    this.createdTime = createdTime;
   	    this.updateTime = updateTime;
-  	    this.memberId = userId;
+  	    this.memberId = memberId;
    
   	}
 
@@ -100,27 +101,27 @@ public class BoardVO {
 		this.memberId = memberId;
 	}
 
-  	public List<BoardFileVO> getBoardFiles() {
-  	    return boardFiles;
-  	}
-
-  	public void setBoardFiles(List<BoardFileVO> boardFiles) {
-  	    this.boardFiles = boardFiles;
-  	}
-  	public List<BoardTagVO> getTagNames() {
-  		return tagNames;
-  	}
-
-  	public void setTagNames(List<BoardTagVO> tagNames) {
-  		this.tagNames = tagNames;
-  	}
-
-  	public List<CommentVO> getComments() {
-  		return comments;
-  	}
-
-  	public void setComments(List<CommentVO> comments) {
-  		this.comments = comments;
-  	}
+//  	public List<BoardFileVO> getBoardFiles() {
+//  	    return boardFiles;
+//  	}
+//
+//  	public void setBoardFiles(List<BoardFileVO> boardFiles) {
+//  	    this.boardFiles = boardFiles;
+//  	}
+//  	public List<BoardTagVO> getTagNames() {
+//  		return tagNames;
+//  	}
+//
+//  	public void setTagNames(List<BoardTagVO> tagNames) {
+//  		this.tagNames = tagNames;
+//  	}
+//
+//  	public List<CommentVO> getComments() {
+//  		return comments;
+//  	}
+//
+//  	public void setComments(List<CommentVO> comments) {
+//  		this.comments = comments;
+//  	}
      
 }
